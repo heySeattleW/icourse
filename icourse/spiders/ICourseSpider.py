@@ -4,6 +4,7 @@ from icourse.settings import USER_AGENT_LIST
 import re
 import requests
 import random
+import time
 
 
 class ICourseSpider(scrapy.Spider):
@@ -16,7 +17,9 @@ class ICourseSpider(scrapy.Spider):
 
     # 浏览器登录后得到的cookie，也就是刚才复制的字符串
     # cookie_str = r'_cliid=UjXEFI0xRWOMURij; _lastEnterDay=2018-12-26; _siteStatId=cb4f38e5-c9d6-486d-88bf-e0f4fca11e8c; _siteStatDay=20181226; _siteStatRedirectUv=redirectUv_16779352; _siteStatVisitorType=visitorType_16779352; lastLoginTime16779352146=2018-12-26; loginMemberCacct=jf16072768; loginMemberAcct=jaychou114118; _FSESSIONID=86tUGBB-LS0OeHkl; tabSwitch=0; _pdDay_285_0=20181226; _pdDay_256_0=20181226; _pdDay_294_0=20181226; _pdDay_368_0=20181226; _pdDay_743_0=20181226; _pdDay_877_0=20181226; _siteStatVisit=visit_16779352; _siteStatVisitTime=1545835071860'
-    cookie_str = r'_cliid=UjXEFI0xRWOMURij; _siteStatVisitorType=visitorType_16779352; loginMemberCacct=jf16072768; loginMemberAcct=jaychou114118; _lastEnterDay=2018-12-28; _siteStatId=9ff92641-8d27-42de-bebc-ecf185c8351a; _siteStatDay=20181228; _siteStatRedirectUv=redirectUv_16779352; lastLoginTime16779352146=2018-12-28; _FSESSIONID=86tAp6_gFBQyQUAc; tabSwitch=0; _pdDay_877_0=20181228; _siteStatVisit=visit_16779352; _siteStatVisitTime=1546000679031'
+    # cookie_str = r'_cliid=UjXEFI0xRWOMURij; _siteStatVisitorType=visitorType_16779352; loginMemberCacct=jf16072768; loginMemberAcct=jaychou114118; _lastEnterDay=2018-12-28; _siteStatId=9ff92641-8d27-42de-bebc-ecf185c8351a; _siteStatDay=20181228; _siteStatRedirectUv=redirectUv_16779352; lastLoginTime16779352146=2018-12-28; _FSESSIONID=86tAp6_gFBQyQUAc; tabSwitch=0; _pdDay_877_0=20181228; _siteStatVisit=visit_16779352; _siteStatVisitTime=1546000679031'
+    # cookie_str = r'loginMemberCacct=jf16072768; loginMemberAcct=jaychou114118; _cliid=FIXwhWG8odivaHbr; _siteStatVisitorType=visitorType_16779352; _cliid=-uQIf7mCX27gV5s4; _lastEnterDay=2018-12-29; _loginBeforeFiveMin=true; _siteStatId=2514a8a0-b9ae-4770-86de-162f57059bc7; _siteStatDay=20181229; _siteStatRedirectUv=redirectUv_16779352; _siteStatVisit=visit_16779352; _siteStatReVisit=reVisit_16779352; lastLoginTime16779352146=2018-12-29; _FSESSIONID=KXFYbWWMhYWjHB1B; _siteStatVisitTime=1546053931045'
+    cookie_str = r'loginMemberCacct=jf16072768; loginMemberAcct=jaychou114118; _cliid=FIXwhWG8odivaHbr; _siteStatVisitorType=visitorType_16779352; _cliid=-uQIf7mCX27gV5s4; _lastEnterDay=2018-12-29; _siteStatId=2514a8a0-b9ae-4770-86de-162f57059bc7; _siteStatDay=20181229; _siteStatRedirectUv=redirectUv_16779352; lastLoginTime16779352146=2018-12-29; _FSESSIONID=KXFYbWWMhYWjHB1B'
     # 设置请求头
     headers = {"User-Agent": ''}
     # 把cookie字符串处理成字典，以便接下来使用
@@ -56,7 +59,8 @@ class ICourseSpider(scrapy.Spider):
             yield item
             # url跟进开始
             # 获取下一页的url信息
-            url = response.xpath('//a[@onclick="Site.ajaxClick(this, 323);return false;"]/@href').extract()[-1]
+            time.sleep(3)
+            url = response.xpath('//a[@hidefocus="true"]/@href').extract()[-6]
             if url:
                 # 将信息组合成下一页的url
                 page = 'http://www.icourse8.com' + url

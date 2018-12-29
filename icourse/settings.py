@@ -21,7 +21,7 @@ NEWSPIDER_MODULE = 'icourse.spiders'
 #USER_AGENT = 'icourse (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -54,9 +54,7 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'icourse.middlewares.IcourseDownloaderMiddleware': 543,
-#}
+
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -114,7 +112,19 @@ USER_AGENT_LIST=[
     "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
 ]
 
+
+
+# Enable or disable downloader middlewares
+# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'tj_spider.middlewares.TjSpiderDownloaderMiddleware': 543,
-#    'tj_spider.middlewares.RandomUserAgentMiddleware': 400,
+#    'icourse.middlewares.ProxyMiddleWare':400,
 # }
+
+# Configure item pipelines
+# See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+CRAWLERA_ENABLED = False
+CRAWLERA_USER = '3a25c179242a43eb9166fcd85b4cc508'
+# CRAWLERA_USER = 'heyscrapy'
+CRAWLERA_PASS = ''
+# CRAWLERA_APIKEY = '3a25c179242a43eb9166fcd85b4cc508'
+HTTPERROR_ALLOWED_CODES = [403, 407]
